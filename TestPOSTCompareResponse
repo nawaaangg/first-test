@@ -1,0 +1,34 @@
+/*Using Postman
+Method: POST 		
+End-point: https://jsonplaceholder.typicode.com/posts
+*/	
+
+//Body script:
+
+{
+    "title": "{{titleReq}}",
+    "body": "{{bodyReq}}",
+    "userId": {{userIdReq}}
+}
+
+//Test script:
+
+const jsonData = pm.response.json();
+pm.test("Test data type of the response", () => {
+  pm.expect(pm.globals.get("titleReq")).to.equal(jsonData.title);
+});
+pm.test("Test data type of the response", () => {
+  pm.expect(pm.globals.get("bodyReq")).to.equal(jsonData.body);
+});
+pm.test("Test data type of the response", () => {
+  pm.expect(pm.globals.get("userIdReq")).to.equal(jsonData.userId);
+});
+
+/*
+Globals:
+
+VARIABLE            INITIAL VALUE           CURRENT VALUE
+titleReq            recommendation          recommendation
+bodyReq             motorcycle              motorcycle
+userIdReq           12            		      12
+*/
