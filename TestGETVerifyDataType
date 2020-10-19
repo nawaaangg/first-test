@@ -1,0 +1,15 @@
+/*
+Using Postman
+Method: GET 		
+End-point: https://jsonplaceholder.typicode.com/posts
+*/
+
+const jsonData = pm.response.json();
+pm.test("Test data type of the response", () => {
+  jsonData.find(data => {
+      pm.expect(data.userId).to.be.an("number", "Could not find the setting")
+      pm.expect(data.id).to.be.an("number", "Could not find the setting")
+      pm.expect(data.title).to.be.an("string", "Could not find the setting");
+      pm.expect(data.body).to.be.an("string", "Could not find the setting");
+  });
+});
