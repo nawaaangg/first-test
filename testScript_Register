@@ -1,0 +1,64 @@
+package Test_Registration_Bukalapak;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+
+public class AutomateRegistrationPage {
+
+ public static void main(String[] args) {
+
+  WebDriver driver = new FirefoxDriver();
+  
+  //navigate to URL
+  driver.navigate().to("https://www.bukalapak.com/register");
+  
+  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+  driver.manage().window().maximize();
+  
+  driver.findElement(By.xpath("//*[@id='header']/div[2]/div/div/nav/div[1]/a")).click();
+  
+  driver.findElement(By.xpath("//*[@id='user_name']")).sendKeys("Nama Pengguna");
+  driver.findElement(By.xpath("//*[@id=’email_or_phone’]")).sendKeys("test@gmail.com");
+    
+  //Select Radio Button
+  String valueOfGender = "2"; 
+  
+  List<WebElement> RadioButtonList = driver.findElements(By.name("user[gender]"));
+  
+  System.out.println("Total numer of Radio Buttons for gender field is: " +RadioButtonList.size());
+  
+  for (int i = 0; i < RadioButtonList.size(); i++){
+   String gend = RadioButtonList.get(i).getAttribute("value");
+   if (gend.equalsIgnoreCase((valueOfGender))){
+    RadioButtonList.get(i).click();
+    break;
+   }
+
+  driver.findElement(By.xpath("//*[@id='user_username']")).sendKeys("username");
+  driver.findElement(By.xpath("//*[@id='user_password’]")).sendKeys("Password@123");
+  driver.findElement(By.xpath("//*[@id='user_password_confirmation']")).sendKeys("Password@123");
+    
+  //select required check boxes
+  String userAgreement = "Yes";
+  if (userAgreement.equalsIgnoreCase(userAgreement)){
+  driver.findElement(By.xpath(".//*[@id=’user_agreement’]")).click();
+  }
+  
+   
+driver.findElement(By.xpath("//button[text()='Daftar']")).click();
+  
+        String actualUrl=" https://www.bukalapak.com/";
+        String expectedUrl= driver.getCurrentUrl();
+        
+        Assert.assertEquals(expectedUrl,actualUrl);
+  
+ }
+
+}
